@@ -32,9 +32,19 @@ const Content = (content) => {
 
 	return (
 		<div>
-			<p>{content.part1} {content.exercise1}</p>
-			<p>{content.part2} {content.exercise2}</p>
-			<p>{content.part3} {content.exercise3}</p>
+			<Part partName = {content.part1} partNumber = {content.exercise1}/>
+			<Part partName = {content.part2} partNumber = {content.exercise2}/>
+			<Part partName = {content.part3} partNumber = {content.exercise3}/>
+		</div>
+	)
+}
+
+const Part = (part) => {
+	console.log("Part1 Loaded")
+
+	return (
+		<div>
+			<p>{part.partName} {part.partNumber}</p>
 		</div>
 	)
 }
