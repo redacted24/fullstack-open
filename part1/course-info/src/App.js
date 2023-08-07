@@ -14,57 +14,48 @@ const App = () => {
 			exercises: 14
 		}
 	]
-	console.log(parts[0])
-	console.log(parts[1])
-	console.log(parts[2])
+
+	const Header = (header) => {
+		console.log("Header Component Loaded")
+		return (
+			<div>
+				<h1>{header.course}</h1>
+			</div>
+		)
+	}
+	
+	const Content = (props) => {
+		console.log("Content Component Loaded")
+		console.log(props)
+		return (
+			<div>
+				<p>{props.content[0].name} {props.content[0].exercises}</p>
+				<p>{props.content[1].name} {props.content[1].exercises}</p>
+				<p>{props.content[2].name} {props.content[2].exercises}</p>
+			</div>
+		)
+	}
+	
+	const Total = (props) => {
+		console.log("Total Component Loaded")
+		return (
+			<div>
+				<p>Total Number of exercises: {props.content[0].exercises + props.content[1].exercises + props.content[2].exercises}</p>
+			</div>
+		)
+	}
+
 	return (
 		<>
 			<Header course = {course}/>
-			<Content part1 = {parts[0].name} part2 = {parts[1].name} part3 = {parts[2].name} exercise1 = {parts[0].exercises} exercise2 = {parts[1].exercises} exercise3 = {parts[2].exercises}/>
-			<Total exercises1 = {parts[0].exercises} exercises2 = {parts[1].exercises} exercises3 = {parts[2].exercises}/>
+			<Content content = {parts}/>
+			<Total content = {parts}/>
 		</>
 	)
 }
 
-const Header = (header) => {
-	console.log("Header Component Loaded")
-	return (
-		<div>
-			<h1>{header.course}</h1>
-		</div>
-	)
-}
 
-const Content = (content) => {
-	console.log("Content Component Loaded")
 
-	return (
-		<div>
-			<Part partName = {content.part1} partNumber = {content.exercise1}/>
-			<Part partName = {content.part2} partNumber = {content.exercise2}/>
-			<Part partName = {content.part3} partNumber = {content.exercise3}/>
-		</div>
-	)
-}
 
-const Part = (part) => {
-	console.log("Part1 Loaded")
-
-	return (
-		<div>
-			<p>{part.partName} {part.partNumber}</p>
-		</div>
-	)
-}
-
-const Total = (total) => {
-	console.log("Total Component Loaded")
-
-	return (
-		<div>
-			<p>Total Number of exercises: {total.exercises1 + total.exercises2 + total.exercises3}</p>
-		</div>
-	)
-}
 
 export default App;
