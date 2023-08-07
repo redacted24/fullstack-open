@@ -1,6 +1,7 @@
 const App = () => {
-	const course = 'Half Stack application development'
-	const parts = [
+	const course = {
+		name: 'Half Stack application development',
+		parts: [
 		{
 			name: 'Fundamentals of React',
 			exercises: 10
@@ -14,12 +15,13 @@ const App = () => {
 			exercises: 14
 		}
 	]
+}
 
-	const Header = (header) => {
+	const Header = (props) => {
 		console.log("Header Component Loaded")
 		return (
 			<div>
-				<h1>{header.course}</h1>
+				<h1>{props.name}</h1>
 			</div>
 		)
 	}
@@ -29,9 +31,9 @@ const App = () => {
 		console.log(props)
 		return (
 			<div>
-				<p>{props.content[0].name} {props.content[0].exercises}</p>
-				<p>{props.content[1].name} {props.content[1].exercises}</p>
-				<p>{props.content[2].name} {props.content[2].exercises}</p>
+				<p>{props.parts[0].name} {props.parts[0].exercises}</p>
+				<p>{props.parts[1].name} {props.parts[1].exercises}</p>
+				<p>{props.parts[2].name} {props.parts[2].exercises}</p>
 			</div>
 		)
 	}
@@ -40,22 +42,18 @@ const App = () => {
 		console.log("Total Component Loaded")
 		return (
 			<div>
-				<p>Total Number of exercises: {props.content[0].exercises + props.content[1].exercises + props.content[2].exercises}</p>
+				<p>Total Number of exercises: {props.juan[0].exercises + props.juan[1].exercises + props.juan[2].exercises}</p>
 			</div>
 		)
 	}
 
 	return (
 		<>
-			<Header course = {course}/>
-			<Content content = {parts}/>
-			<Total content = {parts}/>
+			<Header name = {course.name}/>
+			<Content parts = {course.parts}/>
+			<Total juan = {course.parts}/>
 		</>
 	)
 }
-
-
-
-
 
 export default App;
