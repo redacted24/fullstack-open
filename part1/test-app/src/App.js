@@ -2,20 +2,26 @@ import { useState } from 'react'
 
 const App = () => {
   const [ counter, setCounter ] = useState(0)
-
-  setTimeout(() => {
+  const plusOne = () => {
     setCounter(counter + 1)
-  }, 1000)
-
-  console.log("rendering...", counter)
-
+  }
+  const plusTwo = () => {
+    setCounter(counter + 2)
+  }
+  const setZero = () => {
+    setCounter(0)
+  }
   return (
     <>
       <p>{counter}</p>
+      <div>
+        <button onClick={plusOne}>Add one!</button>
+        <button onClick={plusTwo}>Add two!</button>
+        <button onClick={setZero}>Reset</button>
+      </div>
     </>
   )
 }
-
 
 
 
