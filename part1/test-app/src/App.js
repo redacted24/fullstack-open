@@ -22,13 +22,15 @@ const App = () => {
   )
 }
 
-const Display = (props) => {
-  return (<div>{props.counter}</div>)
+const Display = ({counter}) => {
+  console.log("Display Component-Rerendered.")
+  return (<div>{counter}</div>)
 }
 
-const Button = (props) => {
+const Button = ({handleClick, text}) => {
+  console.log("Button Component-Rerendered.")
   return (
-    <button onClick={props.handleClick}>{props.text}</button>
+    <button onClick={handleClick}>{text}</button>
   )
 }
 
