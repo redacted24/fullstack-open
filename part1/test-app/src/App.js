@@ -10,12 +10,21 @@ const App = () => {
 
   const handleRightClick = () => {setClicks ({...clicks, right: clicks.right + 1})}
 
+  const handleTwoClick = () => {setClicks({left: clicks.left + 1, right: clicks.right + 1})}
+
+  const handleRemoveClick = () => {setClicks({left: clicks.left - 1, right: clicks.right - 1})}
+
   return (
     <div>
       {clicks.left}
       <button onClick = {handleLeftClick}>Left</button>
+{/* The Onclick is an event, and handleLeftClick is an event handler. */}
       <button onClick = {handleRightClick}>Right</button>
       {clicks.right}
+      <p></p>
+      <button onClick = {handleTwoClick}>Add Both</button>
+      <p></p>
+      <button onClick = {handleRemoveClick}>Remove from Both</button>
     </div>
   )
 }
