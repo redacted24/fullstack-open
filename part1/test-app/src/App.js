@@ -42,7 +42,7 @@ const App = () => {
       <p>{allClicks.join('')}</p>
       <p>Total: {total}</p>
       <button onClick = {handleReset}>Reset</button>
-
+{/* lmao xd  */}
     </div>
   )
 }
