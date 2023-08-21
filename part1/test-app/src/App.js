@@ -29,7 +29,6 @@ const App = () => {
     setAll([])
     console.log(allClicks)
     setTotal(0)
-    
   }
 
 
