@@ -33,14 +33,25 @@ const App = () => {
 
   const Average = () => {
     let average = (good-bad)/all
-    if (good, bad, neutral === 0) {
+    if (all === 0) {
       return (
         <p>Average: please click a button</p>
       )
     }
-
     return (
       <p>Average: {average}</p>
+    )
+  }
+
+  const Positive = () => {
+    let positive = (good/all)*100
+    if (all === 0) {
+      return (
+        <p>positive: please click a button</p>
+      )
+    }
+    return (
+      <p>positive: {positive}</p>
     )
   }
 
@@ -53,7 +64,7 @@ const App = () => {
         <p>bad {bad}</p>
         <p>all: {all}</p>
         <Average/>
-        <p>positive {(good/all)*100}%</p>
+        <Positive/>
       </div>
     )
   }
