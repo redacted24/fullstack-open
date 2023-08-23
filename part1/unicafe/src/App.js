@@ -24,6 +24,31 @@ const Statistics = (props) => {
   return(
     <div>
       <h2>statistics</h2>
+      <table>
+        <tbody>
+          <tr>
+            <td>
+              <StatisticsLine text="good"/>
+            </td>
+            <td>
+              <StatisticsLine value={props.good}/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <StatisticsLine text="neutral"/>
+            </td>
+            <td>
+              <StatisticsLine value={props.neutral}/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <StatisticsLine text="good" value={props.good}/>
+            </td>
+          </tr>
+        </tbody>
+      </table>
       <StatisticsLine text="good" value={props.good}/>
       <StatisticsLine text="neutral" value={props.neutral}/>
       <StatisticsLine text="bad" value={props.bad}/>
@@ -47,28 +72,29 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
   const [all, setall] = useState(0)
-
+  const updateAll = () => {
+    const updatedAll = all + 1
+    setall(updatedAll)
+    console.log("all count:" + updatedAll)
+  }
   const handleGood = () => {
     const updatedGood = good + 1
-    const Goodall = all + 1
     setGood(updatedGood)
-    setall(Goodall)
-    console.log("Good count:" + updatedGood, "all count:" + Goodall)
+    updateAll()
+    console.log("Good count:" + updatedGood)
   }
   const handleNeutral = () => {
     const updatedNeutral = neutral + 1
-    const Neutralall = all + 1
     setNeutral(updatedNeutral)
-    setall(Neutralall)
-    console.log("Neutral count:" + updatedNeutral, "all count:" + Neutralall)
+    updateAll()
+    console.log("Neutral count:" + updatedNeutral)
   }
   
   const handleBad = () => {
     const updatedBad = bad + 1
-    const Badall = all + 1
     setBad(updatedBad)
-    setall(Badall)
-    console.log("Bad count:" + updatedBad, "all count:" + Badall)
+    updateAll()
+    console.log("Bad count:" + updatedBad)
   }
 
   return(
