@@ -57,10 +57,9 @@ const App = () => {
   const handleGood = () => {
     const updatedGood = good + 1
     const Goodall = all + 1
-    console.log(updatedGood)
     setGood(updatedGood)
     setall(Goodall)
-    console.log("Good count:" + updatedGood, "all count:" + Goodall)
+    console.log("Good count:" + good, "all count:" + Goodall)
   }
   const handleNeutral = () => {
     const updatedNeutral = neutral + 1
@@ -84,7 +83,7 @@ const App = () => {
       <Buttons handleClick = {handleGood} text = "Good"/>
       <Buttons handleClick = {handleNeutral} text = "Neutral"/>
       <Buttons handleClick = {handleBad} text = "Bad"/>
-      <Statistics/>
+      <Statistics good = {good} bad = {bad} neutral = {neutral} all = {all}/>
     </>
   )
 }
