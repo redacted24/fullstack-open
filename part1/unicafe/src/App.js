@@ -4,9 +4,9 @@ const Buttons = ({handleClick, text, number}) => <button onClick = {handleClick}
 
 const StatisticsLine = (props) => {
   return (
-    <div>
-      <p>{props.text} {props.value}</p>
-    </div>
+    <td>
+      {props.text} {props.value}
+    </td>
   )
 }
 
@@ -27,34 +27,31 @@ const Statistics = (props) => {
       <table>
         <tbody>
           <tr>
-            <td>
-              <StatisticsLine text="good"/>
-            </td>
-            <td>
-              <StatisticsLine value={props.good}/>
-            </td>
+            <StatisticsLine text="good"/>
+            <StatisticsLine value={props.good}/>
           </tr>
           <tr>
-            <td>
-              <StatisticsLine text="neutral"/>
-            </td>
-            <td>
-              <StatisticsLine value={props.neutral}/>
-            </td>
+            <StatisticsLine text="neutral"/>
+            <StatisticsLine value={props.neutral}/>
           </tr>
           <tr>
-            <td>
-              <StatisticsLine text="good" value={props.good}/>
-            </td>
+            <StatisticsLine text="bad"/>
+            <StatisticsLine value={props.bad}/>
+          </tr>
+          <tr>
+            <StatisticsLine text="all"/>
+            <StatisticsLine value={props.all}/>
+          </tr>
+          <tr>
+            <StatisticsLine text="average"/>
+            <StatisticsLine value={average}/>
+          </tr>
+          <tr>
+            <StatisticsLine text="positive"/>
+            <StatisticsLine value={positive + "%"}/>
           </tr>
         </tbody>
       </table>
-      <StatisticsLine text="good" value={props.good}/>
-      <StatisticsLine text="neutral" value={props.neutral}/>
-      <StatisticsLine text="bad" value={props.bad}/>
-      <StatisticsLine text="all" value={props.all}/>
-      <StatisticsLine text="average" value={average}/>
-      <StatisticsLine text="positive" value={positive + "%"}/>
     </div>
   )
 }
