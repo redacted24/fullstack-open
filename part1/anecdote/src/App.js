@@ -19,28 +19,29 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
-  const [votes, setVotes] = useState(Array(8).fill(0))
+  const arr = Array(8).fill(0)
+  const [votes, setVotes] = useState(arr)
 
   const Refresh = () => {
     const min = Math.ceil(0)
     const max = Math.floor(8)
     setSelected(Math.floor(Math.random() * (max-min) + min))
+    console.log("Anecdote selected: " + selected)
+    console.log(votes)
   }
-  console.log("Anecdote selected: " + selected)
-
   
 
   const Voting = () => {
-    setVotes(votes[selected] += 1)
-    console.log(votes)
+    setVotes([...votes, votes[selected] += 1])
     console.log("Voting for anecdote number: " + selected)
     console.log(selected + " now has " + votes[selected] + " votes")
+    console.log(votes)
   }
 
   return (
     <div>
       {anecdotes[selected]}
-      <p></p>
+      <p>has {votes[selected]} votes.</p>
       <Button handleClick = {Refresh} text = "next anecdote"/>
       <Button handleClick = {Voting} text = "vote"/>
     </div>
