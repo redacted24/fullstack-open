@@ -6,6 +6,21 @@ const Button = (props) => {
   )
 }
 
+const HighestVote = ({copy}) => {
+
+  if (copy === undefined) {
+    return (
+      <div></div>
+    )
+  }
+
+  return (
+    <div>
+      <h2>Anecdote with most votes</h2>
+    </div>
+  )
+}
+
 
 const App = () => {
   const anecdotes = [
@@ -21,6 +36,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(8).fill(0))
+  const [bestAnecdote, setBestAnecdote] = useState(null)
 
   const Refresh = () => {
     const min = Math.ceil(0)
@@ -34,9 +50,10 @@ const App = () => {
     const copy = [...votes]
     copy[selected] += 1
     setVotes(copy)
-    console.log("Voting for anecdote number: " + selected)
-    console.log(selected + " now has " + votes[selected] + " votes")
+    setBestAnecdote(selected)
     console.log(votes)
+    console.log(copy)
+  }
   }
 
   return (
@@ -45,8 +62,17 @@ const App = () => {
       <p>has {votes[selected]} votes.</p>
       <Button handleClick = {Refresh} text = "next anecdote"/>
       <Button handleClick = {Voting} text = "vote"/>
+      <HighestVote/>
     </div>
   )
 }
+
+// let maxValue = copy[0]
+// let maxValuePosition = 0
+// for (let i = 1; i < copy.length(); i ++) {
+//   if (copy[i] >= copy[i-1]) {
+//     maxValue = copy[i]
+//     maxValuePosition = i
+// }
 
 export default App
