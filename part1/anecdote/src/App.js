@@ -6,6 +6,7 @@ const Button = (props) => {
   )
 }
 
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -19,8 +20,7 @@ const App = () => {
   ]
 
   const [selected, setSelected] = useState(0)
-  const arr = Array(8).fill(0)
-  const [votes, setVotes] = useState(arr)
+  const [votes, setVotes] = useState(Array(8).fill(0))
 
   const Refresh = () => {
     const min = Math.ceil(0)
@@ -29,10 +29,11 @@ const App = () => {
     console.log("Anecdote selected: " + selected)
     console.log(votes)
   }
-  
 
   const Voting = () => {
-    setVotes([...votes, votes[selected] += 1])
+    const copy = [...votes]
+    copy[selected] += 1
+    setVotes(copy)
     console.log("Voting for anecdote number: " + selected)
     console.log(selected + " now has " + votes[selected] + " votes")
     console.log(votes)
