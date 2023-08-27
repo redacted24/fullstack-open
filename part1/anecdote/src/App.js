@@ -6,9 +6,17 @@ const Button = (props) => {
   )
 }
 
-const HighestVote = ({copy}) => {
+const AnecdoteView = ({anecdotes, selected, votes}) => {
+  console.log("Anecdote #" + selected)
+  return (
+    <div>
+      <p>{anecdotes[selected]} (has {votes[selected]} votes)</p>
+    </div>
+  )
+}
 
-  if (copy === undefined) {
+const HighestVote = ({copy, bestAnecdote, anecdotes, clicks}) => {
+  if (clicks === 0) {
     return (
       <div></div>
     )
@@ -16,11 +24,13 @@ const HighestVote = ({copy}) => {
 
   return (
     <div>
-      <h2>Anecdote with most votes</h2>
+      <h2>Highest Rated Anecdote</h2>
+      <p><strong>with {copy[bestAnecdote]} votes</strong> out of {clicks} votes...</p>
+      <p></p>
+      <em>{anecdotes[bestAnecdote]}</em>
     </div>
   )
 }
-
 
 const App = () => {
   const anecdotes = [
@@ -36,43 +46,45 @@ const App = () => {
 
   const [selected, setSelected] = useState(0)
   const [votes, setVotes] = useState(Array(8).fill(0))
+  const [clicks, setClicks] = useState(0)
   const [bestAnecdote, setBestAnecdote] = useState(null)
+  const copy = [...votes]
+  let maxValue = 0
+  let maxValuePosition = 0
 
   const Refresh = () => {
     const min = Math.ceil(0)
     const max = Math.floor(8)
     setSelected(Math.floor(Math.random() * (max-min) + min))
-    console.log("Anecdote selected: " + selected)
     console.log(votes)
   }
 
   const Voting = () => {
-    const copy = [...votes]
     copy[selected] += 1
     setVotes(copy)
-    setBestAnecdote(selected)
-    console.log(votes)
+    setClicks(clicks + 1)
     console.log(copy)
-  }
+    for (let i = 0; i < copy.length; i++) {
+      if (copy[i] > maxValue) {
+        maxValue = copy[i]
+        maxValuePosition = i
+      }
+    }
+    setBestAnecdote(maxValuePosition)
+    console.log("Max Votes: " + maxValue + " position: " + maxValuePosition)
   }
 
   return (
     <div>
-      {anecdotes[selected]}
-      <p>has {votes[selected]} votes.</p>
+      <h1>Anecdote of the day</h1>
+      <AnecdoteView anecdotes = {anecdotes} selected = {selected} votes = {votes}/>
       <Button handleClick = {Refresh} text = "next anecdote"/>
       <Button handleClick = {Voting} text = "vote"/>
-      <HighestVote/>
+      <HighestVote anecdotes = {anecdotes} clicks = {clicks} bestAnecdote = {bestAnecdote} copy = {copy}/>
     </div>
   )
 }
 
-// let maxValue = copy[0]
-// let maxValuePosition = 0
-// for (let i = 1; i < copy.length(); i ++) {
-//   if (copy[i] >= copy[i-1]) {
-//     maxValue = copy[i]
-//     maxValuePosition = i
-// }
+
 
 export default App
