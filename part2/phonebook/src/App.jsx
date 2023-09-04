@@ -11,14 +11,15 @@ const App = () => {
   const [newName, setNewName] = useState('')
 
   const addName = (event) => {
+    event.preventDefault()
     const newProfile = {
       name: newName,
       id: persons.length + 1,
     }
-    event.preventDefault()
-    setPersons(persons.concat(newProfile))
+    if (persons.includes({name: newName}) === false) {
+      setPersons(persons.concat(newProfile))
+    }
     setNewName('')
-    console.log('name added', event.target)
   }
 
   const handleNameChange = (event) => {
