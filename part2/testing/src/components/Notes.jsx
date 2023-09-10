@@ -12,7 +12,7 @@ const Notes = (props) => {
     return(
       <div>
         <h2>Notes</h2>
-        {filteredNotes.map((element) => <p key = {element.id}>{element.content}</p>)}
+        {filteredNotes.map((element) => <p key = {element.id}>{element.content}</p>).reverse()}
       </div>
     )
   }
