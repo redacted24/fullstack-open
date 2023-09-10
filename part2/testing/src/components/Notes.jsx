@@ -1,5 +1,4 @@
 const Notes = (props) => {
-  // console.log(props.notes)
   if (props.showAll === true) {
     return(
       <div>
@@ -9,6 +8,7 @@ const Notes = (props) => {
     )
   } else {
     const filteredNotes = props.notes.filter((el) => el.important === true)
+
     return(
       <div>
         <h2>Notes</h2>
