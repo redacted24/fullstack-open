@@ -1,19 +1,26 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 import Numbers from './components/Numbers'
 import Phonebook from './components/Phonebook'
 import NewProfile from './components/NewProfile'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', id: 1, number: '345-123-4567'},
-    { name: 'Peizhe Guan', id: 2, number: '911-911-1991'}
-  ]) 
   // State handling the input value.
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
 
   // Button Press Event Handler.
+  useEffect(() => {
+    console.log('effect start')
+    axios
+      .get('http://localhost:3001/persons')
+      .then(response => {
+        console.log('data fetched: ', response)
+        setPersons(response.data)
+      })
+  }, [])
   const addName = (event) => {
     event.preventDefault()
 
