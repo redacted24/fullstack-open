@@ -1,18 +1,28 @@
 import { useState } from 'react'
+import axios from 'axios'
 
 const Input = (props) => {
     const [checked, setChecked] = useState(false)
     const handleSubmit = (event) => {
         event.preventDefault()
+        if (props.newNote == '') {
+          alert(`Please enter a note.`)
+        } else {
         props.setNewNote('')
         // New note Profile
         const noteProfile = {
-            id: props.notes + 1,
             content: props.newNote,
             important: props.isImportant
         }
         props.setNotes(props.notes.concat(noteProfile))
         setChecked(false)
+        axios
+          .post('http://localhost:3001/notes', noteProfile)
+          .then(response => {
+             console.log('Data sent', response)
+             props.setNotes(props.notes.concat(response.data))
+          })}
+
     }
     const handleNoteChange = (event) => {
         props.setNewNote(event.target.value)
