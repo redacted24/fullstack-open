@@ -1,9 +1,16 @@
 const Notes = (props) => {
+  const toggleImportanceOf = (id) => {
+    console.log(`importance of ${id} needs to be toggled`)
+  }
+
   if (props.showAll === true) {
     return(
       <div>
         <h2>Notes</h2>
-        {props.notes.map((el) => <p key={el.id}>{el.content}</p>).reverse()}
+        {props.notes.map((el) => 
+        <ul>
+          <li key={el.id}>{el.content}<button></button></li>
+        </ul>)}
       </div>
     )
   } else {

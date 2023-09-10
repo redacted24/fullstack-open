@@ -4,7 +4,7 @@ import Input from './components/Input'
 import ShowImportant from './components/ShowImportant'
 import { useState, useEffect } from 'react'
 
-const App = (props) => {
+const App = () => {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
   const [showAll, setShowAll] = useState(true)
@@ -12,17 +12,12 @@ const App = (props) => {
 
   // Pull Data from JSON server
   useEffect(() => {
-    // console.log('effect')
     axios
       .get('http://localhost:3001/notes')
       .then(response => {
-        // console.log('promise fulfilled')
         setNotes(response.data)
       })
   }, [])
-
-  // console.log('render', notes.length, 'notes')
-  // console.log(notes)
 
   return (
     <div>
