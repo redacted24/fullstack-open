@@ -13,7 +13,6 @@ const App = () => {
 
   // Button Press Event Handler.
   useEffect(() => {
-    console.log('effect start')
     axios
       .get('http://localhost:3001/persons')
       .then(response => {
@@ -27,10 +26,8 @@ const App = () => {
     // Creation of a new profile (name + id).
     const newProfile = {
       name: newName,
-      id: persons.length + 1,
       number: newNumber
     }
-    const updatedPersons = persons.concat(newProfile)
 
     // Mapping out the names of the persons array, in order to compare with the input.
     const namesArray = persons.map((element) => element.name)
@@ -47,8 +44,10 @@ const App = () => {
       alert('Please enter a number.')
     }
     else {
-      console.log("New Profile:", updatedPersons)
-      setPersons(updatedPersons)
+      // Save to server
+      axios
+        .post(`http://localhost:3001/persons/`, newProfile)
+        .then(response => setPersons(response.data))
       setNewName('')
       setNewNumber('')
     }
