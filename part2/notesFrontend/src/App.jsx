@@ -32,23 +32,26 @@ const App = () => {
         setNotes(notes.concat(returnedNote))
         setNewNote('')
       })
-      
     console.log('Note added.')
   }
 
   // Very important event handler! So much stuff packed into one function. Definitely revisit!
   const toggleImportanceOf = (id) => {
-    const url = `http://localhost:3001/notes/${id}`
+    console.log(notes)
     const note = notes.find(n => n.id === id)
     const changedNote = {...note, important : !note.important}
     console.log(changedNote, 'was changed')
 
     // Put request. Remember, setNotes need to have the entire array of Notes. So the small callback function attacheed to the setNotes creates a new array, where if the id doesn't match, we put the same note, and if the array matches, we put the updated array (initialNotes.data)
-    
     noteService
       .update(id, changedNote)
       .then(returnedNote => {
-        setNotes(notes.map(note => note.id !== id ? note : returnedNote.data))
+        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+      })
+      .catch(error => {
+        alert(
+          `the note '${note.content} was already deleted from server` 
+        )
       })
   }
 
