@@ -47,9 +47,10 @@ const App = () => {
       // Save to server
       axios
         .post(`http://localhost:3001/persons/`, newProfile)
-        .then(response => setPersons(response.data))
+        .then(response => setPersons(persons.concat(response.data)))
       setNewName('')
       setNewNumber('')
+      console.log(`Profile Saved.`)
     }
 
   }
