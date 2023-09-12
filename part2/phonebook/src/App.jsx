@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import noteService from './services/Backend'
 import Numbers from './components/Numbers'
 import Phonebook from './components/Phonebook'
 import NewProfile from './components/NewProfile'
@@ -13,12 +14,9 @@ const App = () => {
 
   // Button Press Event Handler.
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('data fetched: ', response)
-        setPersons(response.data)
-      })
+    noteService
+      .fetchData()
+      .then(response => setPersons(response))
   }, [])
   const addName = (event) => {
     event.preventDefault()
@@ -45,9 +43,9 @@ const App = () => {
     }
     else {
       // Save to server
-      axios
-        .post(`http://localhost:3001/persons/`, newProfile)
-        .then(response => setPersons(persons.concat(response.data)))
+      noteService
+        .postData(newProfile)
+        .then(response => setPersons(persons.concat(response)))
       setNewName('')
       setNewNumber('')
       console.log(`Profile Saved.`)
