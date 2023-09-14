@@ -1,7 +1,25 @@
+import noteService from '../services/Backend'
 const Numbers = (props) => {
-  
+  console.log(props.persons)
+
+  const handleDeleteClick = (id) => {
+    if (window.confirm('Are you sure you want to delete this?')) {
+      noteService
+        .deleteData(id)
+        .then(`Note ${id} has been successfully deleted.`)
+      props.setPersons(props.persons.filter(el => el.id !== id))
+    } else {
+      console.log("No change has been made.")
+    }
+  }
+
+  // Filtering the data
   const filtered = props.persons.filter((person) => person.name.toLowerCase().includes(props.newFilter.toLowerCase()))
-  const filteredShow = filtered.map((person) => <p key = {person.id}>{person.name} {person.number}</p>).reverse()
+  const filteredShow = filtered.map((person) => 
+    <p key = {person.id}>{person.name} {person.number}
+      <button onClick = {() => handleDeleteClick(person.id)}>delete</button>
+    </p>
+    ).reverse()
   return(
     <div>
       <h2>Numbers</h2>
@@ -11,3 +29,4 @@ const Numbers = (props) => {
 }
 
 export default Numbers
+

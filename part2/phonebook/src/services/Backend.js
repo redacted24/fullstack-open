@@ -11,4 +11,13 @@ const postData = newProfile => {
   return request.then(response => response.data)
 }
 
-export default { fetchData, postData }
+const deleteData = (id) => {
+  const request = axios
+  .delete(`${baseUrl}/${id}`)
+  .catch(() => `Error in Deletion`)
+  
+  console.log(`Profile number: ${id} has been sucessfully deleted`)
+  return request.then()
+}
+
+export default { fetchData, postData, deleteData }

@@ -77,7 +77,7 @@ const App = () => {
     <div>
       <Phonebook newFilter = {newFilter} handleFilterChange = {handleFilterChange} handleButtonClick = {handleButtonClick}/>
       <NewProfile newNumber = {newNumber} newName = {newName} addName = {addName} handleNameChange = {handleNameChange} handleNumberChange = {handleNumberChange}/>
-      <Numbers persons = {persons} newFilter = {newFilter}/>
+      <Numbers setPersons = {setPersons} persons = {persons} newFilter = {newFilter}/>
     </div>
   )
 }
