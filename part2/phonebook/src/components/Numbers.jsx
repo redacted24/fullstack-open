@@ -1,12 +1,11 @@
 import noteService from '../services/Backend'
 const Numbers = (props) => {
-  console.log(props.persons)
-
+  // Handling the Deletion of a Profile
   const handleDeleteClick = (id) => {
     if (window.confirm('Are you sure you want to delete this?')) {
       noteService
         .deleteData(id)
-        .then(`Note ${id} has been successfully deleted.`)
+        .then(() => console.log(`Note ${id} has been successfully deleted.`))
       props.setPersons(props.persons.filter(el => el.id !== id))
     } else {
       console.log("No change has been made.")

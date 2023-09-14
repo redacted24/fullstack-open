@@ -11,13 +11,16 @@ const postData = newProfile => {
   return request.then(response => response.data)
 }
 
+const updateData = (id, newProfile) => {
+  const request = axios.put(`${baseUrl}/${id}`, newProfile)
+  return request.then(response => response.data)
+}
+
 const deleteData = (id) => {
-  const request = axios
-  .delete(`${baseUrl}/${id}`)
-  .catch(() => `Error in Deletion`)
-  
-  console.log(`Profile number: ${id} has been sucessfully deleted`)
+  const request = axios.delete(`${baseUrl}/${id}`).catch(() => `Error in Deletion`)
   return request.then()
 }
 
-export default { fetchData, postData, deleteData }
+
+
+export default { fetchData, postData, deleteData, updateData }

@@ -18,6 +18,8 @@ const App = () => {
       .fetchData()
       .then(response => setPersons(response))
   }, [])
+
+  // Event Handler when pressing the button to add a Name
   const addName = (event) => {
     event.preventDefault()
 
@@ -29,11 +31,27 @@ const App = () => {
 
     // Mapping out the names of the persons array, in order to compare with the input.
     const namesArray = persons.map((element) => element.name)
-    console.log(namesArray)
 
     // Checking if the entered name already exists, or if the name entered is blank.
     if (namesArray.includes(newName) === true) {
-      alert(`${newName} is already in the phonebook.`)
+      // Confirm Window for Number Update
+      if (window.confirm(`${newName} is already in the phonebook. Would you like to update the phone number?`)) {
+        const updateId = persons.find(el => el.name === newName).id
+        console.log(`Profile id: ${updateId} is set to be updated.`)
+        // updating...
+        noteService
+          .updateData(updateId, newProfile)
+          .then((response) => {
+            console.log(`Profile id: ${updateId} has been successfully updated.`)
+            console.log(response)
+            // Change data and re-render page
+            setPersons(persons.map(el => el.name === newName ? el = response : el))
+            // Reset the Input
+            setNewName('')
+            setNewNumber('')
+          })
+      }
+      
     } 
     else if (newName === '') {
       alert('Please enter a name.')
@@ -41,8 +59,8 @@ const App = () => {
     else if (newNumber === '') {
       alert('Please enter a number.')
     }
+    // Otherwise, save to the server
     else {
-      // Save to server
       noteService
         .postData(newProfile)
         .then(response => setPersons(persons.concat(response)))
