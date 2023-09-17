@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import Notification from './components/Notification'
 import noteService from './services/Backend'
 import Numbers from './components/Numbers'
 import Phonebook from './components/Phonebook'
@@ -11,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [errorMessage, setErrorMessage] = useState(null)
 
   // Button Press Event Handler.
   useEffect(() => {
@@ -46,7 +47,12 @@ const App = () => {
             console.log(response)
             // Change data and re-render page
             setPersons(persons.map(el => el.name === newName ? el = response : el))
-            // Reset the Input
+            // Displaying Successful Error Message
+            setErrorMessage(`Changed phone number of ${newName}`)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+            // Input Values Reset
             setNewName('')
             setNewNumber('')
           })
@@ -64,9 +70,15 @@ const App = () => {
       noteService
         .postData(newProfile)
         .then(response => setPersons(persons.concat(response)))
+      // Displaying Successful Error Message
+      setErrorMessage(`Added ${newName}`)
+      setTimeout(() => {
+        setErrorMessage(null)
+      }, 5000)  
       setNewName('')
       setNewNumber('')
       console.log(`Profile Saved.`)
+      
     }
 
   }
@@ -93,6 +105,7 @@ const App = () => {
   // App Return
   return (
     <div>
+      <Notification message = {errorMessage}/>
       <Phonebook newFilter = {newFilter} handleFilterChange = {handleFilterChange} handleButtonClick = {handleButtonClick}/>
       <NewProfile newNumber = {newNumber} newName = {newName} addName = {addName} handleNameChange = {handleNameChange} handleNumberChange = {handleNumberChange}/>
       <Numbers setPersons = {setPersons} persons = {persons} newFilter = {newFilter}/>
