@@ -6,3 +6,12 @@
   color: green;
   font-weight: bold;
 }
+
+.error {
+  background-color: lightgray;
+  padding: 10px;
+  border: solid 3px red;
+  border-radius: 5px;
+  color: red;
+  font-weight: bold;
+}

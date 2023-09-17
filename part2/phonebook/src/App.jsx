@@ -12,6 +12,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [newFilter, setNewFilter] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
+  const [errorType, setErrorType] = useState(false)
 
   // Button Press Event Handler.
   useEffect(() => {
@@ -55,6 +56,14 @@ const App = () => {
             // Input Values Reset
             setNewName('')
             setNewNumber('')
+          })
+          .catch(() => {
+            setErrorType(true)
+            setErrorMessage(`${newName} is already deleted from server.`)
+            setTimeout(() => {
+              setErrorMessage(null)
+              setErrorType(false)
+            }, 5000)
           })
       }
       
@@ -105,7 +114,7 @@ const App = () => {
   // App Return
   return (
     <div>
-      <Notification message = {errorMessage}/>
+      <Notification error = {errorType} message = {errorMessage}/>
       <Phonebook newFilter = {newFilter} handleFilterChange = {handleFilterChange} handleButtonClick = {handleButtonClick}/>
       <NewProfile newNumber = {newNumber} newName = {newName} addName = {addName} handleNameChange = {handleNameChange} handleNumberChange = {handleNumberChange}/>
       <Numbers setPersons = {setPersons} persons = {persons} newFilter = {newFilter}/>
