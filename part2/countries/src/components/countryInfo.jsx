@@ -11,11 +11,21 @@ const CountryInfo = ({ countries, search }) => {
       </div>
     )
   } else if (filteredCountries.length === 1) {
-    console.log(filteredCountries)
+    const country = filteredCountries[0]
+    console.log(country)
     return(
       <div>
-        <h2>{filteredCountries[0].name.common}</h2>
-        <p>Capital: {filteredCountries[0].capital}</p>
+        <h2>{country.name.common}</h2>
+        <p><strong>Capital:</strong> {country.capital[0]} <br/>
+        <strong>Population:</strong> {country.population} <br/>
+        <strong>Area:</strong> {country.area} km^2</p>
+        <a href = {country.maps.googleMaps}>Map</a>
+        <p>{country.unMember ? "Part of the United Nations" : "This country is not part of the United Nations"}</p>
+        <h4>Languages:</h4>
+        <ul>
+          {Object.values(country.languages).map(el => <li key = {el}>{el}</li>)}
+        </ul>
+        <img src = {country.flags.png}></img>
       </div>
     )
   }

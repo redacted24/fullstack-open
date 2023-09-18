@@ -16,6 +16,7 @@ const App = () => {
       console.log(response)
       console.log('Data successfully fetched!')
       setCountries(response)
+
     })
     .catch(() => {
       console.log('Error: ' + search + ' is not a valid country.');

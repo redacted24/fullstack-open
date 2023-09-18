@@ -1,3 +1,3 @@
-const response = [{name: 1, bruh: 2}, {name: 2, bruh: 3}]
-
-console.log(response.length)
+const response = {bruh: 1, cat: 2}
+const newResponse = Object.values(response)
+console.log(newResponse)
