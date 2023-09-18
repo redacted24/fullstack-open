@@ -1,7 +1,12 @@
-const CountryInfo = ({ countries, search }) => {
+const CountryInfo = ({ countries, search, setSearch }) => {
   // Declaring a variable containing all filtered countries
   const filteredCountries = countries.filter(el => el.name.common.toLowerCase().includes(search.toLowerCase()))
   console.log("Number of countries:", filteredCountries.length)
+  const handleShowClick = () => {
+    setSearch()
+  }
+
+  // What Happens in the search bar?
   if (!search) {
     return null
   } else if (filteredCountries.length > 10) {
@@ -32,7 +37,12 @@ const CountryInfo = ({ countries, search }) => {
 
   return(
     <div>
-      {filteredCountries.map(el => <p key = {el.name.common}>{el.name.common}</p>)}
+      {filteredCountries.map(el => 
+      <p key = {el.name.common}>
+        {el.name.common}
+        <button onClick = {handleShowClick}>show</button>
+      </p>
+      )}
     </div>
   )
 }

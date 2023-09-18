@@ -6,6 +6,7 @@ import backendService from './services/backend'
 const App = () => {
   const [search, setSearch] = useState('')
   const [countries, setCountries] = useState([])
+  const [singleView, setSingleView] = useState(false)
   const [errorMessage, setErrorMessage] = useState(null)
 
   // Initial Data Fetch
@@ -26,7 +27,7 @@ const App = () => {
   return(
     <>
       <SearchBar search = {search} setSearch = {setSearch}/>
-      <CountryInfo countries = {countries} search = {search} />
+      <CountryInfo countries = {countries} search = {search} setSearch = {setSearch}/>
     </>
   )
 }
