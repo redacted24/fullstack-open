@@ -2,12 +2,11 @@ import { useState, useEffect } from 'react'
 import SearchBar from './components/searchBar'
 import CountryInfo from './components/countryInfo'
 import backendService from './services/backend'
-import WeatherInfo from './components/WeatherInfo'
 
 const App = () => {
   const [search, setSearch] = useState('')
   const [countries, setCountries] = useState([])
-  const [weather, setWeather] = useState([])
+  const [weather, setWeather] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
 
   // Initial Data Fetch

@@ -1,3 +1,7 @@
+// Need to fix the useEffect ; for a brief second, after searching for a country,
+// going to another country would display previous country weather data because state
+// is not changed (weather) state
+
 import { useEffect } from 'react'
 import backendService from '../services/backend'
 
@@ -14,13 +18,19 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather }) => {
   // What Happens in the search bar?
   if (!search) {
     return null
-  } else if (filteredCountries.length > 10) {
+  } 
+  
+  // If there are too many matches in the search bar
+  else if (filteredCountries.length > 10) {
     return(
       <div>
         <p>Too many matches, please specify your filter.</p>
       </div>
     )
-  } else if (filteredCountries.length === 1) {
+  } 
+  
+  // If there is only one country in the array of filtered countries:
+  else if (filteredCountries.length === 1) {
     const country = filteredCountries[0]
     console.log(country)
     useEffect(() => {
@@ -35,7 +45,7 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather }) => {
           console.log('Error while fetching data')
         })
     },[])
-    console.log('First render')
+
     return(
       <div>
         <h2>{country.name.common}</h2>
@@ -49,12 +59,15 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather }) => {
           {Object.values(country.languages).map(el => <li key = {el}>{el}</li>)}
         </ul>
         <h4>Weather:</h4>
-        <p>Temperature:</p>
-        <img src = {country.flags.png}></img>
+        <p>Temperature: {weather ? weather.main['temp'] : null} Celsius</p>
+        <img alt = "Weather Icon" src = {backendService.iconUrl(weather ? weather.weather[0]['icon'] : null)}></img>
+        <p>Wind: {weather ? weather.wind["speed"] : null} m/s</p>
+        <img src = {country.flags.png} alt = 'Flag of the country'></img>
       </div>
     )
   }
 
+  // Default Country List Return with button to show the country
   return(
     <div>
       {filteredCountries.map(el => 
