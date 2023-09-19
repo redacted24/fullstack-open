@@ -2,32 +2,33 @@ import { useState, useEffect } from 'react'
 import SearchBar from './components/searchBar'
 import CountryInfo from './components/countryInfo'
 import backendService from './services/backend'
+import WeatherInfo from './components/WeatherInfo'
 
 const App = () => {
   const [search, setSearch] = useState('')
   const [countries, setCountries] = useState([])
-  const [singleView, setSingleView] = useState(false)
+  const [weather, setWeather] = useState([])
   const [errorMessage, setErrorMessage] = useState(null)
 
   // Initial Data Fetch
   useEffect(() => {
     backendService
-    .getData(search)
+    .getData()
     .then((response) => {
       console.log(response)
       console.log('Data successfully fetched!')
       setCountries(response)
-
     })
+    // Make an Error Message Component
     .catch(() => {
-      console.log('Error: ' + search + ' is not a valid country.');
+      console.log('Data could not be fethed');
     })
   }, [])
 
   return(
     <>
       <SearchBar search = {search} setSearch = {setSearch}/>
-      <CountryInfo countries = {countries} search = {search} setSearch = {setSearch}/>
+      <CountryInfo weather = {weather} setWeather = {setWeather} countries = {countries} search = {search} setSearch = {setSearch}/>
     </>
   )
 }
