@@ -6,8 +6,8 @@ const SearchBar = ({search, setSearch}) => {
   }
 
   return(
-    <div>
-      find countries: <input value = {search} onChange = {handleSearchChange}></input>
+    <div className="center inputField">
+      Find Countries: <input value = {search} onChange = {handleSearchChange}></input>
     </div>
   )
 }

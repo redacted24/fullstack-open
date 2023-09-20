@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import SearchBar from './components/searchBar'
 import CountryInfo from './components/countryInfo'
 import backendService from './services/backend'
+import ErrorMessage from './components/ErrorMessage'
 
 const App = () => {
   const [search, setSearch] = useState('')
@@ -11,23 +12,27 @@ const App = () => {
 
   // Initial Data Fetch
   useEffect(() => {
+    console.log('Country data Effect Load')
     backendService
     .getData()
     .then((response) => {
       console.log(response)
-      console.log('Data successfully fetched!')
+      console.log('✅ Country data successfully fetched!')
       setCountries(response)
     })
     // Make an Error Message Component
     .catch(() => {
-      console.log('Data could not be fethed');
+      console.log('❌ Country data could not be fetched')
+      setErrorMessage('Error in fetching country data')
+      setTimeout(() => setErrorMessage(null), 3000)
     })
   }, [])
 
   return(
     <>
+      <ErrorMessage state = {errorMessage}/>
       <SearchBar search = {search} setSearch = {setSearch}/>
-      <CountryInfo weather = {weather} setWeather = {setWeather} countries = {countries} search = {search} setSearch = {setSearch}/>
+      <CountryInfo errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} weather = {weather} setWeather = {setWeather} countries = {countries} search = {search} setSearch = {setSearch}/>
     </>
   )
 }

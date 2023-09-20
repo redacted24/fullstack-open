@@ -1,14 +1,11 @@
-// Need to fix the useEffect ; for a brief second, after searching for a country,
-// going to another country would display previous country weather data because state
-// is not changed (weather) state
-
 import { useEffect } from 'react'
 import backendService from '../services/backend'
+import WeatherInfo from './WeatherInfo'
 
-const CountryInfo = ({ countries, search, setSearch, weather, setWeather }) => {
+const CountryInfo = ({ countries, search, setSearch, weather, setWeather, setErrorMessage, errorMessage }) => {
   // Declaring a variable containing all filtered countries
   const filteredCountries = countries.filter(el => el.name.common.toLowerCase().includes(search.toLowerCase()))
-  console.log("Number of countries:", filteredCountries.length)
+  console.log("Countries loaded:", filteredCountries.length)
 
   // Event Handler for Show Button Click
   const handleShowClick = (name) => {
@@ -23,7 +20,7 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather }) => {
   // If there are too many matches in the search bar
   else if (filteredCountries.length > 10) {
     return(
-      <div>
+      <div className='manyMatches fontsize20'>
         <p>Too many matches, please specify your filter.</p>
       </div>
     )
@@ -32,18 +29,20 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather }) => {
   // If there is only one country in the array of filtered countries:
   else if (filteredCountries.length === 1) {
     const country = filteredCountries[0]
-    console.log(country)
     useEffect(() => {
+      console.log("Weather Effect Load")
       backendService
         .getWeatherData(country.latlng[0], country.latlng[1])
         .then((response) => {
-          console.log('Weather Data Successfully Fetched!')
-          console.log(response)
+          console.log('✅ Weather Data Successfully Fetched!')
           setWeather(response)
         })
         .catch(() => {
-          console.log('Error while fetching data')
+          console.log('❌ Weather Data Could Not Be Successfully Fetched')
+          setErrorMessage('Error in fetching weather data')
+          setTimeout(() => setErrorMessage(null), 3000)
         })
+      return setWeather(null)
     },[])
 
     return(
@@ -58,10 +57,7 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather }) => {
         <ul>
           {Object.values(country.languages).map(el => <li key = {el}>{el}</li>)}
         </ul>
-        <h4>Weather:</h4>
-        <p>Temperature: {weather ? weather.main['temp'] : null} Celsius</p>
-        <img alt = "Weather Icon" src = {backendService.iconUrl(weather ? weather.weather[0]['icon'] : null)}></img>
-        <p>Wind: {weather ? weather.wind["speed"] : null} m/s</p>
+        <WeatherInfo weather = {weather}/>
         <img src = {country.flags.png} alt = 'Flag of the country'></img>
       </div>
     )
