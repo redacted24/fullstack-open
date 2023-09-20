@@ -1,5 +1,3 @@
-import { useEffect } from 'react'
-import backendService from '../services/backend'
 import WeatherInfo from './WeatherInfo'
 
 const CountryInfo = ({ countries, search, setSearch, weather, setWeather, setErrorMessage, errorMessage }) => {
@@ -29,24 +27,8 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather, setErr
   // If there is only one country in the array of filtered countries:
   else if (filteredCountries.length === 1) {
     const country = filteredCountries[0]
-    useEffect(() => {
-      console.log("Weather Effect Load")
-      backendService
-        .getWeatherData(country.latlng[0], country.latlng[1])
-        .then((response) => {
-          console.log('✅ Weather Data Successfully Fetched!')
-          setWeather(response)
-        })
-        .catch(() => {
-          console.log('❌ Weather Data Could Not Be Successfully Fetched')
-          setErrorMessage('Error in fetching weather data')
-          setTimeout(() => setErrorMessage(null), 3000)
-        })
-      return setWeather(null)
-    },[])
-
     return(
-      <div>
+      <div className = 'mainContent'>
         <h2>{country.name.common}</h2>
         <p><strong>Capital:</strong> {country.capital[0]} <br/>
         <strong>Population:</strong> {country.population} <br/>
@@ -57,13 +39,15 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather, setErr
         <ul>
           {Object.values(country.languages).map(el => <li key = {el}>{el}</li>)}
         </ul>
-        <WeatherInfo weather = {weather}/>
+        <WeatherInfo country = {country} setWeather = {setWeather} setErroMessage = {setErrorMessage} weather = {weather}/>
         <img src = {country.flags.png} alt = 'Flag of the country'></img>
       </div>
     )
   }
 
   // Default Country List Return with button to show the country
+  // If user input doesn't return anything, the map function operates on an empty array and so we see nothing.
+  // I mean it works, but I'm not sure if it's good practice
   return(
     <div>
       {filteredCountries.map(el => 

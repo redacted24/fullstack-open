@@ -7,7 +7,7 @@ body {
 
 .errorMessage {
   background-color: whitesmoke;
-  font-family:'Gotham';
+  font-family:"Gotham";
   margin-top: 10px;
   margin-bottom: 10px;
   color: red;
@@ -26,7 +26,7 @@ body {
 
 .inputField {
   background-color: lightskyblue;
-  font-family: 'Gotham';
+  font-family:'Times New Roman', Times, serif;
   font-size: 24px;
   padding: 30px;
   border-bottom: 3px black ridge;
@@ -34,7 +34,17 @@ body {
 }
 
 .manyMatches {
-  font-family: 'Gotham';
+  font-family:'Times New Roman', Times, serif;
   padding: 5px 15px 10px 15px;
+  margin: 0;
+}
+
+
+h2 {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 40px;
+  background-color: lightgray;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
   margin: 0;
 }

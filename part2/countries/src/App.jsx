@@ -4,6 +4,8 @@ import CountryInfo from './components/countryInfo'
 import backendService from './services/backend'
 import ErrorMessage from './components/ErrorMessage'
 
+// Put Show button to link directly to Information page
+
 const App = () => {
   const [search, setSearch] = useState('')
   const [countries, setCountries] = useState([])
