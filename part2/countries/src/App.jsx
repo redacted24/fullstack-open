@@ -10,7 +10,7 @@ const App = () => {
   const [search, setSearch] = useState('')
   const [countries, setCountries] = useState([])
   const [weather, setWeather] = useState(null)
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)  
 
   // Initial Data Fetch
   useEffect(() => {
