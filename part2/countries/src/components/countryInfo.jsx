@@ -28,19 +28,25 @@ const CountryInfo = ({ countries, search, setSearch, weather, setWeather, setErr
   else if (filteredCountries.length === 1) {
     const country = filteredCountries[0]
     return(
-      <div className = 'mainContent'>
-        <h2>{country.name.common}</h2>
-        <p><strong>Capital:</strong> {country.capital[0]} <br/>
-        <strong>Population:</strong> {country.population} <br/>
-        <strong>Area:</strong> {country.area} km^2</p>
-        <a href = {country.maps.googleMaps}>Map</a>
-        <p>{country.unMember ? "Part of the United Nations" : "This country is not part of the United Nations"}</p>
-        <h4>Languages:</h4>
-        <ul>
-          {Object.values(country.languages).map(el => <li key = {el}>{el}</li>)}
-        </ul>
-        <WeatherInfo country = {country} setWeather = {setWeather} setErroMessage = {setErrorMessage} weather = {weather}/>
-        <img src = {country.flags.png} alt = 'Flag of the country'></img>
+      <div>
+        <div className='countryTitle'>
+          <h2>{country.name.common}</h2>
+          <img src = {country.flags.png} alt = 'Flag of the country'></img>
+        </div>
+        <div className='mainArea'>
+          <div className='firstThree'>
+            <p><strong>Capital:</strong> {country.capital[0]} <br/>
+            <strong>Population:</strong> {country.population} <br/>
+            <strong>Area:</strong> {country.area} km^2</p>
+          </div>
+          <a href = {country.maps.googleMaps}>Map</a>
+          <p>{country.unMember ? "Part of the United Nations" : "This country is not part of the United Nations"}</p>
+          <h4>Languages:</h4>
+          <ul>
+            {Object.values(country.languages).map(el => <li key = {el}>{el}</li>)}
+          </ul>
+          <WeatherInfo country = {country} setWeather = {setWeather} setErrorMessage = {setErrorMessage} weather = {weather}/>
+        </div>
       </div>
     )
   }

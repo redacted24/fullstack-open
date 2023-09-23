@@ -1,7 +1,7 @@
 import axios from 'axios'
 const baseUrl = 'https://studies.cs.helsinki.fi/restcountries/api/all'
 
-const api_key = '5eb8e57a0b619e489bba85c002f65267' // Not Ideal, but I'm lazy 
+const api_key = import.meta.env.VITE_weather
 
 const weatherUrl = (lat, lon) => `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`
 const iconUrl = (iconCode) => `https://openweathermap.org/img/wn/${iconCode}@2x.png`

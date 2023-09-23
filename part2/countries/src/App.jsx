@@ -32,8 +32,8 @@ const App = () => {
 
   return(
     <>
-      <ErrorMessage state = {errorMessage}/>
       <SearchBar search = {search} setSearch = {setSearch}/>
+      <ErrorMessage state = {errorMessage}/>
       <CountryInfo errorMessage = {errorMessage} setErrorMessage = {setErrorMessage} weather = {weather} setWeather = {setWeather} countries = {countries} search = {search} setSearch = {setSearch}/>
     </>
   )

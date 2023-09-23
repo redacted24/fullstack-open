@@ -26,9 +26,9 @@ const WeatherInfo = ({ country, weather, setWeather, setErrorMessage }) => {
   return(
     <div className='weather'>
         <h4>Weather:</h4>
-        <p>Temperature: {weather.main['temp']} Celsius</p>
+        <p><strong>Temperature:</strong> {weather.main['temp']} Celsius</p>
         <img alt = "Weather Icon" src = {backendService.iconUrl(weather.weather[0]['icon'])}></img>
-        <p>Wind: {weather.wind["speed"]} m/s</p>
+        <p><strong>Wind:</strong> {weather.wind["speed"]} m/s</p>
     </div>
   )
 }
