@@ -1,4 +1,8 @@
 // Import Node's built-in web server module.
+
+// To Enable Nodemon running, do PowerShell -ExecutionPolicy Bypass
+// To install Nodemon, npm install --save-dev nodemon (make sure it is saved under DevDependencies)
+// Nodemon allows "Live Server" edits by restarting the server whenever a file change is made.
 const express = require('express')
 const app = express()
 // Notes Content
@@ -24,7 +28,9 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
 
-app.get('/api/notes', (request, response) => {
+app.get('/api/notes/:id', (request, response) => {
+  const id = request.params.id
+  const note = notes.find(note => note.id === id)
   response.json(notes)
 })
 
