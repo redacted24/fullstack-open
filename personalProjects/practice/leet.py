@@ -5,7 +5,9 @@ class Solution:
         while count < len(nums):
             inst = target - nums[count]
             if nums.count(inst) != 0:
-                ans.extend(nums[count])
+                ans = [count, nums.index(inst)]
                 break
-            count += 1
-        print('program done', ans)
+            else:
+                count += 1
+        return ans
+        
