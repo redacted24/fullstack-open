@@ -7,6 +7,10 @@
 // Nodemon allows "Live Server" edits by restarting the server whenever a file change is made.
 const express = require('express')
 const app = express()
+
+// JSON-parser. Deals with HTTP POST Requests. The actual new note that is attached to the request body will be further down in the app.
+app.use(express.json())
+
 // Notes Content
 let notes = [
   {
@@ -41,7 +45,7 @@ app.get('/api/notes/:id', (request, response) => {
   // Find the appropriate note that is called in the URL address. Use the find array method, where the function passed as an argument must be true (note.id === id)
   const note = notes.find(note => {
     // Debugging tool: checking if note.id and the id comparison are comparisons of the same type. In this case, no, we were comparing a string with a number.
-    console.log(note.id, typeof note.id, id, typeof id, note.id === id)
+    // console.log(note.id, typeof note.id, id, typeof id, note.id === id)
     return note.id === id
   })
   console.log(note)
@@ -55,6 +59,19 @@ app.get('/api/notes/:id', (request, response) => {
     response.send('rip bozo') // Custom Error Message :)
     response.status(404).end()
   }
+})
+
+app.post('/api/notes', (request, response) => {
+  // Find the maxId of all notes, in order to assign a new id to the new note. Not the recommended method, but we will use it for now.
+  const maxId = notes.length > 0
+    ? Math.max(...notes.map(n => n.id))
+    : 0
+  // Access the data from the body property of the request object. Without the json-parser line above, the body property would be undefined
+  const note = request.body
+  note.id = maxId + 1
+  notes = notes.concat(note)
+  response.json(note)
+  // This is the JSON data of the request. The json-parser will then transform it into a JavaScript object and attach it to the body property of the request object, which is then sent to the address http://localhost:3001/api/notes
 })
 
 // Note deletion - Note that if the notes of the application are only saved to the memory, the list of notes will return to the original state after application restart. If you have Nodemon running, it is probably difficult to see a note deleted.
