@@ -43,9 +43,8 @@ app.get('/api/notes/:id', (request, response) => {
   // Pulling the id from the params key of the request object.
   const id = Number(request.params.id)
   // Find the appropriate note that is called in the URL address. Use the find array method, where the function passed as an argument must be true (note.id === id)
+  // Make sure to make the ID as a number, not as a string, because ID is an integer in the notes object.
   const note = notes.find(note => {
-    // Debugging tool: checking if note.id and the id comparison are comparisons of the same type. In this case, no, we were comparing a string with a number.
-    // console.log(note.id, typeof note.id, id, typeof id, note.id === id)
     return note.id === id
   })
   console.log(note)
@@ -55,21 +54,40 @@ app.get('/api/notes/:id', (request, response) => {
     response.json(note)
   } else {
     // Use the status method for setting a status (404 is an error status; previously, even if invalid ID was called, an HTTP Status Code 200 was sent.)
-    // Use the end method for responding (sending back) to the request without sending any data out of the server.
     response.send('rip bozo') // Custom Error Message :)
+    // Use the end method for responding (sending back) to the request without sending any data out of the server.
     response.status(404).end()
   }
 })
 
-app.post('/api/notes', (request, response) => {
+const generateId = () => {
   // Find the maxId of all notes, in order to assign a new id to the new note. Not the recommended method, but we will use it for now.
   const maxId = notes.length > 0
     ? Math.max(...notes.map(n => n.id))
     : 0
+    // The Math.max can't be passed as a parameter to arrays, so we use the spread syntax to make single numbers
+  return maxId + 1
+}
+
+app.post('/api/notes', (request, response) => {
   // Access the data from the body property of the request object. Without the json-parser line above, the body property would be undefined
-  const note = request.body
-  note.id = maxId + 1
+  const body = request.body
+
+  if (!body.content) {
+    return response.status(400).json({
+      error: 'content missing'
+    })
+    // Return is called here, so that the rest of the code doesn't run. Otherwise, the malformed note would be saved to the server even if the error message is displayed.
+  }
+
+  const note = {
+    content: body.content,
+    important: body.important || false,
+    // If the data saved in the body variable has the important property, then "important" here is evaluated to the content of the important variable. Otherwise, it is false
+    id: generateId()
+  }
   notes = notes.concat(note)
+
   response.json(note)
   // This is the JSON data of the request. The json-parser will then transform it into a JavaScript object and attach it to the body property of the request object, which is then sent to the address http://localhost:3001/api/notes
 })
