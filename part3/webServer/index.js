@@ -4,8 +4,10 @@
 // To Enable Nodemon running, do PowerShell -ExecutionPolicy Bypass
 // To install Nodemon, npm install --save-dev nodemon (make sure it is saved under DevDependencies)
 // Nodemon allows "Live Server" edits by restarting the server whenever a file change is made.
+
 const express = require('express')
 const app = express()
+
 // Notes Content
 let notes = [
   {
@@ -32,10 +34,9 @@ app.get('/', (request, response) => {
 app.get('/api/notes/:id', (request, response) => {
   const id = request.params.id
   console.log(id)
-  console.log('1')
   const note = notes.find(note => note.id === id)
   console.log(note)
-  response.json(notes)
+  response.json(note)
 })
 
 const PORT = 3001
